@@ -1,0 +1,146 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "category": "Electronics",
+      "author": "typicode"
+    }, {
+      "id": 2,
+      "category": "Clothings",
+      "author": "typicode"
+    },
+    {
+      "id": 3,
+      "category": "Footwear",
+      "author": "typicode"
+    },
+    {
+      "id": 4,
+      "category": "Mobiles",
+      "author": "typicode"
+    },
+    {
+      "id": 5,
+      "category": "Groceries",
+      "author": "typicode"
+    }
+  ],
+  "categories":[{
+  "Electronics" : [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "Electronics",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+    
+  ],
+  "Clothings": [
+    {
+      "id": 1,
+      "body": "Clothings",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+    
+  ],
+  "Mobiles": [
+    {
+      "id": 1,
+      "body": "Mobiles",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+    
+  ],
+  "Footwear": [
+    {
+      "id": 1,
+      "body": "Footwear",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+    
+  ],
+  "Groceries": [
+    {
+      "id": 1,
+      "body": "Groceries",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+    
+  ]
+  }]
+  
+}
