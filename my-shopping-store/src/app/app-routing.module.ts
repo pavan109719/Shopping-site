@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CategorisedProductsComponent } from './categorised-products/categorised-products.component';
+import { ShopByCategoryComponent } from './shop-by-category/shop-by-category.component';
 
-const routes: Routes = [];
+export const routes: Routes = [
+  {path:'', component: ShopByCategoryComponent,children:[
+    {path:"products/:category", component: CategorisedProductsComponent}]},
+
+  
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

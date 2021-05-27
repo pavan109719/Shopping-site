@@ -1,10 +1,13 @@
-<div class="menu"><button (click)="shopByCategory()">Shop by Category</button>
+
+<div class="menu"><button (click)="shopByCategory()">Shop by Category</button></div>
+
 <div *ngIf="expandMenu">
     <ul>
     <li #category *ngFor="let res of response">
-    <button (click)="selectCategory(category)">{{res.category}}</button>
+    <button id="list" (click)="selectCategory(category)">{{res.category}}</button>
     </li>
     </ul></div>
+    <router-outlet></router-outlet>
     
 
-</div>
+

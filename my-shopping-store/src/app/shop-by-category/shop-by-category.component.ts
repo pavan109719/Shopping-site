@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router, RouterModule } from '@angular/router';
 import { CategorisedProductsComponent } from '../categorised-products/categorised-products.component';
 import { ProductsService } from '../products.service';
 
@@ -14,32 +15,39 @@ export class ShopByCategoryComponent implements OnInit {
   selectedCategory : any;
   productList:any;
   selectedList : any;
-  constructor(private _prodService:ProductsService) { }
+  constructor(private _prodService:ProductsService,
+    private router:Router, private route:ActivatedRoute) { }
 
   expandMenu:boolean = false;
   ngOnInit(): void {
-   this._prodService.getCategoryList();
-   this._prodService.getProductByCategories();
+   this._prodService.getCategoryList().subscribe(data =>{
+    this.response = data;
+  });
+    this._prodService.getProductByCategories().subscribe(data =>{
+      this.productList = data;
+    })
+ 
    
   }
   shopByCategory(){
-    this.response = this._prodService.data;
     this.expandMenu=!this.expandMenu;
   }
   selectCategory(ele:HTMLElement){
     this.selectedCategory = ele.innerText;
-    this.productList= this._prodService.products;
+    
     console.log(this.selectedCategory);
-    console.log(this.productList[0]);
     let category = Object.entries(this.productList[0]);
-    console.log(category);
+
     category.forEach(el=>{
       if(el[0]==this.selectedCategory){
-      console.log(el[1]);}
       this.selectedList = el[1];
+      }
       
     });
-    this._prodService.category.next(this.selectedList);
+    // this._prodService.category.next(this.productList);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+     this.router.navigate(['/products',this.selectedCategory]);
     this.expandMenu=!this.expandMenu;
   }
 

@@ -1,8 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
 import { ProductsService } from '../products.service';
 import { ShopByCategoryComponent } from './shop-by-category.component';
 import { HttpClientModule } from '@angular/common/http';
 import { from as observableFrom } from 'rxjs';
+import {​​​​​​​​ RouterTestingModule }​​​​​​​​ from'@angular/router/testing';
+import { By } from '@angular/platform-browser';
+
+
 
 
 describe('ShopByCategoryComponent', () => {
@@ -11,7 +16,7 @@ describe('ShopByCategoryComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ ShopByCategoryComponent ],
       providers:[ProductsService]
     })
@@ -29,30 +34,33 @@ describe('ShopByCategoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch category list',()=>{
-    let service = TestBed.inject(ProductsService);
-    let response = spyOn(service,'getCategoryList').and.returnValue(observableFrom([[1,2,3]]));
+  it('should fetch Product list',()=>{
+    let service = fixture.debugElement.injector.get(ProductsService);
+    let spy = spyOn(service,'getProductByCategories').and.returnValue(observableFrom([{1:2}]));
     fixture.detectChanges();
-  
-      expect(response).toHaveBeenCalled();
+
+    component.ngOnInit();
+    
+      expect(spy).toHaveBeenCalled();
     })
 
 
-    it('should fetch Product list',()=>{
-      let service = TestBed.inject(ProductsService);
-      let productList = spyOn(service,'getProductByCategories').and.returnValue(observableFrom([1,2,3]))
+    it('should fetch category list',()=>{
+      let service = fixture.debugElement.injector.get(ProductsService);
+      let categoryList = spyOn(service,'getCategoryList').and.returnValue(observableFrom([1,2,3]))
   
       fixture.detectChanges();
+       component.ngOnInit()
   
-      expect(productList).toHaveBeenCalled();
+      expect(categoryList).toHaveBeenCalled();
     
     })
-    it('should update Product list',()=>{
+    it('should update category list',()=>{
       let categoryList= undefined;
-      
+      let service = fixture.debugElement.injector.get(ProductsService);
+
+      categoryList = spyOn(service,'getCategoryList').and.returnValue(observableFrom([1,2,3]))
       component.ngOnInit();
-      component.shopByCategory();
-      categoryList = component.response;
   
       expect(categoryList).not.toBe(undefined);
     
@@ -66,6 +74,16 @@ describe('ShopByCategoryComponent', () => {
       expect(expandMenu).toBe(true);
     
     })
+    
+  it('navigates to products/category route when category is selected from the menu', () => {
+    const location: Location = TestBed.inject(Location);
+    let ele : HTMLElement = fixture.debugElement.query(By.css("#list")).nativeElement;
+
+    component.selectCategory(ele);
+    let param = component.selectedCategory;
+    let newPath =`/product/${param}`;
+    expect(location.path()).toBe(newPath);
+  });
   
   
   });

@@ -1,7 +1,34 @@
 li{
     list-style-type: none;
+    color: black;
+}
+ul{
+    display: flex;
 }
 li button{
-    background: none;
+    background-color:whitesmoke;
+    color: teal;
     border: none;
+    font-size: 16px;
+    margin-left: 20px;
+    justify-content: space-between;    
+}
+/* #list{
+    color:#ddd;
+    border: none;
+} */
+.menu{
+background-color:teal;
+  overflow: hidden;
+}
+.menu button{
+    background-color: #ddd;
+    border:none;
+    float: left;
+    color: #1f1d1d;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+
 }

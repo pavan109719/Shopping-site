@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products.service';
 
 @Component({
@@ -8,20 +9,34 @@ import { ProductsService } from '../products.service';
 })
 export class CategorisedProductsComponent implements OnInit {
 
-  constructor(private _prodService:ProductsService) { }
-  productList:any;
-  ngOnInit(): void {
-    if(this.productList == undefined){
-    this._prodService.category.subscribe(data =>{
-      this.productList=data;
-    })
-
+  constructor(private _prodService:ProductsService, private route:ActivatedRoute) {
   }
-}
+  productList:any;
+  selection:any;
+  selectList:any;
   
-  onSelect(){
-    console.log(this.productList);
+  ngOnInit(): void {
+    console.log("aaa");
+      this.selection=this.route.snapshot.params;
+      this._prodService.getProductByCategories().subscribe(data =>{
+       this.productList = data[0];
+       let val = this.selection.category;
+       this.onSelect();
+       let i = (Object.keys(this.productList)).indexOf(val);
+       let list = (Object.entries(this.productList));
+       let  itemList:any =[];
+       list[i].map(e => itemList.push(e));
+        console.log(itemList[1]);
+       this.selectList = itemList[1];
+       this.selectList;
+       
+     })
+ 
 }
+  onSelect(){
+    console.log(this.selection.category);
+
+    }
     
   
    
