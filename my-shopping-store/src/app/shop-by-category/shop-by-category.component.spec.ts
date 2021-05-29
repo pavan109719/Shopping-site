@@ -6,7 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { from as observableFrom } from 'rxjs';
 import {​​​​​​​​ RouterTestingModule }​​​​​​​​ from'@angular/router/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
+class RouterStub{
+  navigate(){
+
+  }
+}
 
 
 
@@ -18,7 +24,8 @@ describe('ShopByCategoryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, RouterTestingModule],
       declarations: [ ShopByCategoryComponent ],
-      providers:[ProductsService]
+      providers:[ProductsService,
+      {provide:Router,useClass:RouterStub}]
     })
     .compileComponents();
   });
@@ -26,7 +33,6 @@ describe('ShopByCategoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ShopByCategoryComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     
   });
 
@@ -34,13 +40,11 @@ describe('ShopByCategoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch Product list',()=>{
+  it('should call Product list service',()=>{
     let service = fixture.debugElement.injector.get(ProductsService);
     let spy = spyOn(service,'getProductByCategories').and.returnValue(observableFrom([{1:2}]));
     fixture.detectChanges();
 
-    component.ngOnInit();
-    
       expect(spy).toHaveBeenCalled();
     })
 
@@ -50,7 +54,6 @@ describe('ShopByCategoryComponent', () => {
       let categoryList = spyOn(service,'getCategoryList').and.returnValue(observableFrom([1,2,3]))
   
       fixture.detectChanges();
-       component.ngOnInit()
   
       expect(categoryList).toHaveBeenCalled();
     
@@ -59,31 +62,63 @@ describe('ShopByCategoryComponent', () => {
       let categoryList= undefined;
       let service = fixture.debugElement.injector.get(ProductsService);
 
-      categoryList = spyOn(service,'getCategoryList').and.returnValue(observableFrom([1,2,3]))
-      component.ngOnInit();
+      categoryList = spyOn(service,'getCategoryList').and.returnValue(observableFrom([1,2,3]));
   
       expect(categoryList).not.toBe(undefined);
     
     })
-    it('should update menu show/hide flag',()=>{
+    it('should update menu show/hide flag on button click',()=>{
       let expandMenu= false;
   
-      component.shopByCategory();
+      let btn = fixture.debugElement.query(By.css("#menu"));
+      btn.triggerEventHandler('click',[]);
       expandMenu = component.expandMenu;
   
       expect(expandMenu).toBe(true);
     
     })
     
-  it('navigates to products/category route when category is selected from the menu', () => {
-    const location: Location = TestBed.inject(Location);
-    let ele : HTMLElement = fixture.debugElement.query(By.css("#list")).nativeElement;
+  it('should display menu on clicking shop by category button ', () => {
 
-    component.selectCategory(ele);
-    let param = component.selectedCategory;
-    let newPath =`/product/${param}`;
-    expect(location.path()).toBe(newPath);
+    let btn = fixture.debugElement.query(By.css("#menu"));
+    btn.triggerEventHandler('click',[]);
+    fixture.detectChanges();
+
+    let list = fixture.debugElement.query(By.css("#menu-items"));
+    
+    expect(list).toBeTruthy();
+    
   });
+  it('should call navigate method',()=>{
+
+    let route = TestBed.get(Router);
+    let spy = spyOn(route,'navigate');
+
+    component.selectCategory('category')
+  
+    expect(spy).toHaveBeenCalledWith(['products','category']);
+  })
+
+
+
+  xit('should call selectCategory method on selecting category along with the selection value',()=>{
+
+    let btn = fixture.debugElement.query(By.css("#menu"));
+    btn.triggerEventHandler('click',[]);
+    fixture.detectChanges();
+
+    let category = fixture.debugElement.queryAll(By.css("#list"))[0];
+    let el = category.parent;
+    let ele :HTMLElement = el?.nativeNode;
+     category.triggerEventHandler('click',ele)
+    // fixture.detectChanges();
+    // component.selectedCategory = "selection";
+
+    // expect(component.selectCategory).toHaveBeenCalledWith(ele);
+
+
+
+  })
   
   
   });

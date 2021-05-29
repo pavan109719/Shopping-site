@@ -26,11 +26,20 @@ module.exports = function (config) {
     },
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/my-shopping-store'),
-      subdir: '.',
+      reports:['html','lcovonly'],
+      fixWebpackSourcePaths:true,
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }
-      ]
+      ],
+      check: {
+          global: {
+            statements: 100,
+            lines: 100,
+            branches: 100,
+            functions: 100
+          }
+      }
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
@@ -39,6 +48,6 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
   });
 };

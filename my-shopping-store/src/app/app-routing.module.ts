@@ -4,8 +4,10 @@ import { CategorisedProductsComponent } from './categorised-products/categorised
 import { ShopByCategoryComponent } from './shop-by-category/shop-by-category.component';
 
 export const routes: Routes = [
-  {path:'', component: ShopByCategoryComponent,children:[
+  {path:'', component: ShopByCategoryComponent,children:
+  [
     {path:"products/:category", component: CategorisedProductsComponent}]},
+    {path:'', redirectTo: '',pathMatch:'full'},
 
   
 ];
