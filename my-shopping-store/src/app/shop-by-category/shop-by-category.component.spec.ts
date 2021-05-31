@@ -4,7 +4,6 @@ import { ProductsService } from '../products.service';
 import { ShopByCategoryComponent } from './shop-by-category.component';
 import { HttpClientModule } from '@angular/common/http';
 import { from as observableFrom } from 'rxjs';
-import {​​​​​​​​ RouterTestingModule }​​​​​​​​ from'@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -22,7 +21,7 @@ describe('ShopByCategoryComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [HttpClientModule],
       declarations: [ ShopByCategoryComponent ],
       providers:[ProductsService,
       {provide:Router,useClass:RouterStub}]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { ProductsService } from '../products.service';
 
@@ -11,10 +12,11 @@ import { ProductsService } from '../products.service';
 export class ShopByCategoryComponent implements OnInit {
 
   response: any;
-  category: any;
+  category = new Subject();
   selectedCategory: any;
   productList: any;
-  constructor(private _prodService: ProductsService, private router: Router) { }
+  isLoggedIn: any = false;
+  constructor(private _prodService: ProductsService, private route: Router) { }
 
   expandMenu: boolean = false;
   ngOnInit(): void {
@@ -25,15 +27,25 @@ export class ShopByCategoryComponent implements OnInit {
       this.productList = data;
     })
 
-
+    this._prodService.isSessionActive.subscribe(d=>this.isLoggedIn=d)
+    console.log(this.isLoggedIn);
   }
   shopByCategory() {
     this.expandMenu = !this.expandMenu;
   }
 
   selectCategory(ele: string) {
-    this.router.navigate(['products', ele]);
-    this.shopByCategory();
+    let param = ele;
+      if(this.isLoggedIn){
+      this.route.navigate(['products', ele]);
+      }else{
+        this._prodService.selectedCategory(ele);
+        this.category.next(param);
+      }
+  this.shopByCategory();
+  }
+  logout(){
+    this._prodService.logout();
   }
 
 }

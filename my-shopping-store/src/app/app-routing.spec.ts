@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { routes } from './app-routing.module'; 
 import { ProductsService } from "./products.service";
 import { HttpClientModule } from "@angular/common/http";
+import { LoginComponent } from "./login/login.component";
+import { DashboardComponent } from "./login/dashboard/dashboard.component";
+import { AuthGuard } from "./auth.guard";
 
 describe("Router: App", () => { 
     let location: Location; 
@@ -18,7 +21,7 @@ describe("Router: App", () => {
 
   beforeEach(() => { 
     TestBed.configureTestingModule({ 
-    imports: [RouterTestingModule.withRoutes(routes),HttpClientModule], 
+    imports: [RouterTestingModule,HttpClientModule], 
     declarations: [AppComponent, ShopByCategoryComponent,CategorisedProductsComponent],
     providers:[ProductsService]
 
@@ -42,12 +45,13 @@ describe("Router: App", () => {
     })})); 
 
 
-  it('should contain a route to /products component',() => { 
-   expect(routes).toContain({path:'', component: ShopByCategoryComponent,children:
-    [
-     {path:"products/:category", component: CategorisedProductsComponent}
-    ]
-})
+  it('should contain a route to products component',() => { 
+   expect(routes).toContain( {path:'', component: ShopByCategoryComponent,children:
+   [{path:'products/:category', component: CategorisedProductsComponent,canActivate:[AuthGuard]},
+   {path:'dashboard', component: DashboardComponent,canActivate:[AuthGuard]},
+   {path:'login', component: LoginComponent}
+   ]},
+   {path:'', redirectTo: '',pathMatch:'full'})
     
   }); 
 

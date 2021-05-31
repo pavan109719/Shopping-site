@@ -67,5 +67,15 @@ it('should fetch Product list',()=>{
     expect(spy).toHaveBeenCalled();
   })
 
+it('should assign category list',()=>{
+  let list: any = [];
+  let prodList :any ={1:2}
+  let service = fixture.debugElement.injector.get(ProductsService);
+  let spyList = spyOn(service,'getProductByCategories').and.returnValue(from(prodList));
+  component.getProductList();
+  list = Object.entries(spyList);
+   expect(component.selectList).toEqual(list);
+  })
+
 }
 )

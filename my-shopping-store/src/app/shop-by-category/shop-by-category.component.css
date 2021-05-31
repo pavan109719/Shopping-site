@@ -22,13 +22,28 @@ background-color:teal;
   overflow: hidden;
 }
 .menu button{
-    background-color: #ddd;
+    background-color: rgba(0, 128, 128, 0.3);
     border:none;
     float: left;
-    color: #1f1d1d;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-
+    font-weight: bold;
+    
+}
+.menu a{
+    width: 80px;
+    display: block;
+    padding: 14px 16px;
+    color: white;
+    height: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: rgba(0, 128, 128, 0.3);
+    /* margin-left: 80%;
+    margin-right: 0%; */
+    float: right;
 }

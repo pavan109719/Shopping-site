@@ -1,0 +1,22 @@
+ul{
+    display: flex;    
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: column;
+}
+.list-item{
+    list-style: none;
+    width: 80vw; 
+    height: 120px;
+    margin: 10px auto; 
+    background-clip: padding-box;
+    /* background-image: url(./../../../assets/clothings.jpg); */
+    font-size: 42px;
+    background:rgba(255, 245, 238,0.3);
+    padding: 10px;
+}
+a{
+    text-decoration: none;
+    color: teal;
+
+}

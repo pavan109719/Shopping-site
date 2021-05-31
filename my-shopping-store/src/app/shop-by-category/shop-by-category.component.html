@@ -1,5 +1,8 @@
 
-<div class="menu"><button id ="menu" (click)="shopByCategory()">Shop by Category</button></div>
+<div class="menu"><button id ="menu" (click)="shopByCategory()">Shop by Category</button>
+<a *ngIf="isLoggedIn"  routerLink='login' (click)="logout()">Logout</a>
+<a *ngIf="!isLoggedIn" routerLink='login' >Login</a>
+</div>
 
 <div id="menu-items" *ngIf="expandMenu">
     <ul>
